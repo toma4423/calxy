@@ -12,19 +12,19 @@ This repository contains the source code for the Calxy application.
 - **Cross-Platform:** Runs on Windows, macOS, and Linux.
 - **Zero-Dependency Install:** End-users only need to install the application itself.
 
-## 開発方針 (Development Policy)
+## 🛠️ Development Policy
 
-基本的にはDockerにて開発を行なっており、現在はLinuxOS用でビルドされます。macOSやWindows用のネイティブパッケージをビルドする場合は、それぞれのOS上で直接Gradleタスクを実行する必要があります。
+Development is primarily done via Docker. The build process currently produces a Linux executable. To build native packages for macOS or Windows, you will need to run the corresponding Gradle tasks directly on those operating systems.
 
-## 🛠️ Development Environment
+## 🚀 Getting Started (Docker Environment)
 
-This project uses a Docker-based development environment to ensure consistency across all developers.
+This project uses a Docker-based development environment to ensure consistency.
 
 ### Prerequisites
 
 - [Docker](https://www.docker.com/products/docker-desktop/) must be installed and running.
 
-### Getting Started
+### Setup
 
 1.  **Clone the repository:**
     ```bash
@@ -32,8 +32,11 @@ This project uses a Docker-based development environment to ensure consistency a
     cd calxy
     ```
 
-2.  **Build and start the development container:**
-    The initial setup has been completed. The development container is now running in the background. You can connect to it using Docker.
+2.  **Build and start the container:**
+    ```bash
+    docker-compose up -d --build
+    ```
+    The initial setup is complete, and the development container will be running in the background.
 
 3.  **Accessing the container:**
     To open a shell inside the running container, execute:
@@ -48,7 +51,7 @@ This project uses a Docker-based development environment to ensure consistency a
     docker-compose down
     ```
 
-## プロジェクト構成
+## Project Structure
 
 ```
 calxy/
@@ -58,6 +61,8 @@ calxy/
 ├── Dockerfile.dev
 ├── logs/
 │   └── 2025-09-25.md
+├── README.md
+├── README.ja.md
 ├── requirements.txt
 └── src/
     ├── main/
