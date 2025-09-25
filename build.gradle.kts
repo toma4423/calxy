@@ -5,7 +5,6 @@ plugins {
     id("org.jetbrains.compose") version "1.6.2"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
-    application
 }
 
 group = "com.spreadsheet"
@@ -15,6 +14,14 @@ repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     google()
+    flatDir {
+        val graalVmHome = System.getenv("JAVA_HOME")
+        dirs(
+            "$graalVmHome/lib/polyglot",
+            "$graalVmHome/languages/python",
+            "$graalVmHome/lib/truffle"
+        )
+    }
 }
 
 // === 依存関係の定義 ===
@@ -27,10 +34,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
-    // Python Integration (GraalVM)
-    implementation("org.graalvm.polyglot:polyglot:22.3.1")
-    implementation("org.graalvm.python:python-language:22.3.1")
-    implementation("org.graalvm.python:python-resources:22.3.1")
+        // Python Integration (GraalVM)
+    implementation(group = "org.graalvm.polyglot", name = "polyglot-native-api", version = "local")
+    implementation(group = "org.graalvm.python", name = "graalpython", version = "local")
+    implementation(group = "org.graalvm.truffle", name = "truffle-api", version = "local")
 
     // File I/O
     implementation("org.apache.poi:poi-ooxml:5.2.5")
@@ -45,10 +52,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.10")
 }
 
-// === アプリケーション実行設定 ===
-application {
-    mainClass.set("com.spreadsheet.MainKt")
-}
+
 
 // === 配布パッケージ生成設定 ===
 compose.desktop {
@@ -77,7 +81,7 @@ compose.desktop {
                 iconFile.set(project.file("src/main/resources/icons/icon.icns"))
             }
             linux {
-                iconFile.set(project.file("src/main/resources/icons/icon.png"))
+                // iconFile.set(project.file("src/main/resources/icons/icon.png"))
             }
         }
     }
