@@ -12,6 +12,10 @@ This repository contains the source code for the Calxy application.
 - **Cross-Platform:** Runs on Windows, macOS, and Linux.
 - **Zero-Dependency Install:** End-users only need to install the application itself.
 
+## 開発方針 (Development Policy)
+
+基本的にはDockerにて開発を行なっており、現在はLinuxOS用でビルドされます。macOSやWindows用のネイティブパッケージをビルドする場合は、それぞれのOS上で直接Gradleタスクを実行する必要があります。
+
 ## 🛠️ Development Environment
 
 This project uses a Docker-based development environment to ensure consistency across all developers.
@@ -63,3 +67,9 @@ calxy/
         ├── kotlin/
         └── resources/
 ```
+
+---
+### 🤖 **Note for Gemini Agent**
+
+To understand the project's setup history, including the extensive troubleshooting of the Docker environment and build scripts, please review the work logs located in the `/logs` directory. This will ensure a smooth handover and prevent repeating resolved issues.
+---
