@@ -1,0 +1,17 @@
+# detekt-config.yml
+style:
+  # 1行の最大長を120文字に設定
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
+  # 不要なキャストを禁止
+  UnnecessaryParentheses:
+    active: true
+
+complexity:
+  # 関数の複雑度が高くなりすぎないように制限
+  ComplexMethod:
+    active: true
+    threshold: 15
+
+# その他、プロジェクトに合わせてルールを追加

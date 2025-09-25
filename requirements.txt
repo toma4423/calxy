@@ -1,0 +1,9 @@
+# データ分析
+pandas
+numpy
+
+# ネットワーク
+requests
+
+# 可視化
+matplotlib

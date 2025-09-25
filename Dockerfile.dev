@@ -1,0 +1,34 @@
+# Dockerfile.dev (GraalVM + uv 統合版)
+# GraalVM Community Editionをベースイメージとして使用
+FROM ghcr.io/graalvm/graalvm-community:17
+
+# 環境変数を設定
+ENV UV_HOME=/opt/uv
+ENV PATH="$UV_HOME:$PATH"
+
+# 1. 開発に必要な基本ツールをインストール
+RUN microdnf remove -y zlib-static libstdc++-static && \
+    microdnf install -y curl gcc gcc-c++ make libffi-devel zlib-devel && \
+    microdnf clean all
+
+# 2. 高速Pythonパッケージインストーラ「uv」をインストール
+RUN curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=$UV_HOME sh
+
+
+
+# 4. Pythonの依存関係ファイルをコンテナにコピー
+WORKDIR /app
+COPY requirements.txt .
+
+# 5. uvを使ってPythonライブラリをインストール
+RUN uv venv python_env && \
+    uv pip install --keyring-provider=disabled --python python_env/bin/python -r requirements.txt
+
+# 6. 作成したPython仮想環境をデフォルトのPATHに追加
+ENV PATH="/app/python_env/bin:$PATH"
+
+# デバッグ・開発用のポートを開放
+EXPOSE 8080 5005
+
+# 開発用にコンテナを起動しておく
+CMD ["bash"]
