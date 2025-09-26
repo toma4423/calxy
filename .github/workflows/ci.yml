@@ -33,5 +33,8 @@ jobs:
     - name: Wait for Docker services to be ready (optional, but good practice)
       run: sleep 10 # Give services some time to fully start
 
+    - name: List contents of /app in Docker container
+      run: docker compose exec -t app-dev bash -c "ls -la /app"
+
     - name: Run tests inside Docker container
       run: docker compose exec -t app-dev bash -c "./gradlew test"
