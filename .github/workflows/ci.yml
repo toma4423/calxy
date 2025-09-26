@@ -16,6 +16,14 @@ jobs:
 
     - name: Set up Docker Compose
       run: |
+        if ! command -v docker-compose &> /dev/null
+        then
+            echo "docker-compose not found, installing..."
+            sudo apt-get update
+            sudo apt-get install -y docker-compose
+        else
+            echo "docker-compose is already installed."
+        fi
         docker-compose version
         docker version
 
