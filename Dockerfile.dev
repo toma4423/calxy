@@ -72,4 +72,4 @@ ENV PATH="/app/python_env/bin:$PATH"
 EXPOSE 8080 5005
 
 # Keep the container running
-CMD ["bash"]
+CMD ["tail", "-f", "/dev/null"]
