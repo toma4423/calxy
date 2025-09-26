@@ -15,7 +15,7 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     google()
     flatDir {
-        val graalVmHome = System.getenv("JAVA_HOME")
+        val graalVmHome = System.getenv("GRAALVM_HOME") ?: System.getenv("JAVA_HOME")
         dirs(
             "$graalVmHome/lib/polyglot",
             "$graalVmHome/languages/python",
@@ -41,6 +41,13 @@ dependencies {
 
     // File I/O
     implementation("org.apache.poi:poi-ooxml:5.2.5")
+
+    // Database
+    val exposedVersion = "0.41.1"
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    runtimeOnly("com.h2database:h2:2.2.224")
 
     // Logging
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")

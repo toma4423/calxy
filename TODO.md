@@ -2,45 +2,58 @@
 
 This document outlines the next development tasks based on the project specification.
 
-## Phase 1: MVP Development
+## Phase 1: MVP Core Implementation (Completed)
 
-The primary goal is to complete the Minimum Viable Product (MVP) as a standalone desktop application.
+The core engine and basic UI structure for the MVP are now complete.
 
-### 1. Core Model Implementation
-- **Files:** `core/spreadsheet/Spreadsheet.kt`, `Sheet.kt`, `Cell.kt`
+### 1. Core Model & Calculation Engine
+- **Files:** `core/spreadsheet/`, `core/formula/`
 - **Tasks:**
-    - [ ] Define the data classes for `Spreadsheet`, `Sheet`, and `Cell`.
-    - [ ] Implement the grid model (e.g., using a map or a list of lists) to store cell data.
-    - [ ] Implement basic cell value getting/setting logic.
+    - [x] Define data classes for `Sheet` and `Cell`, including `CellValue` sealed class.
+    - [x] Implement the grid model using a sparse map in `Sheet.kt`.
+    - [x] Implement a Parser/Evaluator architecture for the formula engine.
+    - [x] Implement parsing for cell references, operator precedence, and parentheses.
+    - [x] Implement dependency graph for tracking cell relationships.
+    - [x] Implement circular reference detection (`#REF!`).
+    - [x] Implement automatic recalculation engine.
 
 ### 2. Basic UI Implementation
-- **Files:** `ui/SpreadsheetWindow.kt`, `ui/components/CellGrid.kt`
+- **Files:** `Main.kt`
 - **Tasks:**
-    - [ ] Create the main application window in `SpreadsheetWindow.kt`.
-    - [ ] Implement a basic, scrollable grid of cells in `CellGrid.kt` using Jetpack Compose.
-    - [ ] Display cell values from the core model in the UI grid.
-    - [ ] Allow basic cell selection.
+    - [x] Create the main application window.
+    - [x] Implement a basic, scrollable grid of cells using Jetpack Compose.
+    - [x] Display computed cell values from the `Sheet` model in the UI grid.
 
-### 3. Formula Engine (Kotlin Layer)
-- **Files:** `core/formula/FormulaEngine.kt`, `core/formula/functions/`
+### 3. Built-in Functions (Phase 1)
+- **Files:** `core/formula/Functions.kt`
 - **Tasks:**
-    - [ ] Implement `FormulaEngine.kt` to parse and evaluate simple formulas (e.g., `=A1+B1`).
-    - [ ] Implement basic functions like `SUM`, `AVERAGE` in the `functions` directory.
+    - [x] Implement basic aggregate functions: `SUM`, `AVERAGE`, `COUNT`, `MAX`, `MIN`.
+    - [x] Implement cell range (`A1:B10`) parsing and evaluation.
 
-### 4. Python Integration
-- **Files:** `python/PythonExecutor.kt`
+### 4. Core Technology Verification
 - **Tasks:**
-    - [ ] Implement `PythonExecutor.kt` to initialize the GraalVM Polyglot Context.
-    - [ ] Create a method to execute a simple Python script (e.g., `print('hello from python')`) and capture the output.
-
-### 5. File I/O
-- **Files:** `io/ExcelReader.kt`, `io/ExcelWriter.kt`
-- **Tasks:**
-    - [ ] Implement basic `.xlsx` reading using Apache POI to populate the core spreadsheet model.
-    - [ ] Implement basic `.xlsx` writing.
+    - [x] **Python Integration:** Verified that Kotlin can execute Python code and exchange data via GraalVM.
+    - [x] **File I/O:** Verified that basic `.xlsx` files can be read and written using Apache POI.
+    - [x] **Database:** Verified that a connection can be made and data can be manipulated using the Exposed ORM framework.
 
 ---
 
-## Future Tasks (Post-MVP)
+## Phase 2: Feature Expansion
 
+### 1. Formula Engine
+- [ ] Implement logical functions (`IF`, `AND`, `OR`, `NOT`).
+- [ ] Implement text functions (`CONCATENATE`, `LEFT`, `RIGHT`, `LEN`).
+- [ ] Implement lookup functions (`VLOOKUP`, `HLOOKUP`).
+- [ ] Add support for named ranges.
+
+### 2. UI/UX
+- [ ] Implement cell selection and a formula input bar.
+- [ ] Implement cell editing (typing directly into cells).
+- [ ] Implement basic cell formatting (bold, italics, colors).
+
+### 3. File I/O
+- [ ] Implement `ExcelReader.kt` to fully load `.xlsx` files into the `Sheet` model.
+- [ ] Implement `ExcelWriter.kt` to save the `Sheet` model to an `.xlsx` file.
+
+### 4. Other
 - [ ] **GitHub Release:** Create a GitHub Release and upload the Linux package (`.deb`) built during the initial setup.
