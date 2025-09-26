@@ -34,4 +34,4 @@ jobs:
       run: sleep 10 # Give services some time to fully start
 
     - name: Run tests inside Docker container
-      run: docker compose exec -t calxy-app-dev-1 bash -c "./gradlew test"
+      run: docker compose exec -t app-dev bash -c "./gradlew test"
