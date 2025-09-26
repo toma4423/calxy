@@ -27,11 +27,11 @@ jobs:
         docker-compose version
         docker version
 
-    - name: Build and start Docker containers and wait for them to be ready
-      run: docker-compose up -d --build --wait
+    - name: Build and start Docker containers and wait for them to be ready (using 'docker compose')
+      run: docker compose up -d --build --wait
 
     - name: Wait for Docker services to be ready (optional, but good practice)
       run: sleep 10 # Give services some time to fully start
 
     - name: Run tests inside Docker container
-      run: docker exec -t calxy-app-dev-1 bash -c "./gradlew test"
+      run: docker compose exec -t calxy-app-dev-1 bash -c "./gradlew test"
