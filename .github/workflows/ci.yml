@@ -14,6 +14,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: List files in workspace for debugging
+      run: ls -la
+      working-directory: ${{ github.workspace }}
+
     - name: Set up Docker Compose
       run: |
         if ! command -v docker-compose &> /dev/null
