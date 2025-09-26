@@ -33,9 +33,17 @@ Calxyは、Microsoft ExcelやAccessの代替となることを目指して設計
     ```
 
 2.  **コンテナのビルドと起動:**
-    ```bash
-    docker-compose up -d --build
-    ```
+    開発環境のDockerイメージをビルドし、コンテナを起動します。
+    お使いのPCのCPUアーキテクチャに合わせて、`TARGETARCH`環境変数を設定してください。
+    *   **ARMベースのPC (例: Apple Silicon Mac):**
+        ```bash
+        TARGETARCH=aarch64 docker-compose up -d --build
+        ```
+    *   **x86_64ベースのPC (例: Intel Mac/Windows/Linux):**
+        ```bash
+        TARGETARCH=amd64 docker-compose up -d --build
+        ```
+    `TARGETARCH`を設定しない場合、デフォルトで`amd64`が使用されます。
     初期セットアップは完了しており、開発コンテナがバックグラウンドで起動します。
 
 3.  **コンテナへのアクセス:**
