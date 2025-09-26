@@ -27,8 +27,8 @@ jobs:
         docker-compose version
         docker version
 
-    - name: Build and start Docker containers
-      run: docker-compose up -d --build
+    - name: Build and start Docker containers and wait for them to be ready
+      run: docker-compose up -d --build --wait
 
     - name: Wait for Docker services to be ready (optional, but good practice)
       run: sleep 10 # Give services some time to fully start
