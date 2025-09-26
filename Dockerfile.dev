@@ -61,6 +61,10 @@ RUN apt-get update && apt-get install -y libffi-dev zlib1g libgl1 libfontconfig1
 # Copy Python dependencies file
 COPY requirements.txt .
 
+# Copy Gradle Wrapper files
+COPY gradlew .
+COPY gradlew.bat .
+
 # Install Python libraries using uv
 RUN uv venv python_env && \
     uv pip install --keyring-provider=disabled --python python_env/bin/python -r requirements.txt
