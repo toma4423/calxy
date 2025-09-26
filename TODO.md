@@ -41,9 +41,9 @@ The core engine and basic UI structure for the MVP are now complete.
 ## Phase 2: Feature Expansion
 
 ### 1. Formula Engine
-- [ ] Implement logical functions (`IF`, `AND`, `OR`, `NOT`).
-- [ ] Implement text functions (`CONCATENATE`, `LEFT`, `RIGHT`, `LEN`).
-- [ ] Implement lookup functions (`VLOOKUP`, `HLOOKUP`).
+- [x] Implement logical functions (`IF`, `AND`, `OR`, `NOT`).
+- [x] Implement text functions (`CONCATENATE`, `LEFT`, `RIGHT`, `LEN`).
+- [x] Implement lookup functions (`VLOOKUP`, `HLOOKUP`).
 - [ ] Add support for named ranges.
 
 ### 2. UI/UX
@@ -56,4 +56,4 @@ The core engine and basic UI structure for the MVP are now complete.
 - [ ] Implement `ExcelWriter.kt` to save the `Sheet` model to an `.xlsx` file.
 
 ### 4. Other
-- [ ] **GitHub Release:** Create a GitHub Release and upload the Linux package (`.deb`) built during the initial setup.
+- [x] **GitHub Release:** Build the Linux package (`.deb`). (Uploading to GitHub Release is a separate step.)
