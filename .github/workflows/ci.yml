@@ -1,0 +1,29 @@
+name: CI Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Compose
+      run: |
+        docker-compose version
+        docker version
+
+    - name: Build and start Docker containers
+      run: docker-compose up -d --build
+
+    - name: Wait for Docker services to be ready (optional, but good practice)
+      run: sleep 10 # Give services some time to fully start
+
+    - name: Run tests inside Docker container
+      run: docker exec -t calxy-app-dev-1 bash -c "./gradlew test"

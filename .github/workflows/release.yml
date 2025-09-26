@@ -1,0 +1,59 @@
+name: Release and Upload Artifact
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Triggers on pushes to tags like v1.0.0
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to create a release and upload assets
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Compose
+      run: |
+        docker-compose version
+        docker version
+
+    - name: Build and start Docker containers
+      run: docker-compose up -d --build
+
+    - name: Wait for Docker services to be ready
+      run: sleep 10 # Give services some time to fully start
+
+    - name: Build Linux .deb package inside Docker
+      run: docker exec -t calxy-app-dev-1 bash -c "./gradlew packageDeb"
+
+    - name: Get release tag
+      id: get_version
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.get_version.outputs.RELEASE_VERSION }}
+        name: Release ${{ steps.get_version.outputs.RELEASE_VERSION }}
+        body: |
+          ## Release Notes
+          - Automated release for version ${{ steps.get_version.outputs.RELEASE_VERSION }}
+          - See CHANGELOG for details.
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/compose/binaries/main/deb/spreadsheetnext_${{ steps.get_version.outputs.RELEASE_VERSION }}-1_arm64.deb # Adjust filename if needed
+        asset_name: spreadsheetnext_${{ steps.get_version.outputs.RELEASE_VERSION }}-1_arm64.deb
+        asset_content_type: application/vnd.debian.binary-package
