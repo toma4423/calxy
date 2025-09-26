@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+      args:
+        TARGETARCH: ${TARGETARCH:-amd64}
     volumes:
       - .:/app
       - gradle-cache:/root/.gradle
