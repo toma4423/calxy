@@ -57,3 +57,12 @@ The core engine and basic UI structure for the MVP are now complete.
 
 ### 4. Other
 - [x] **GitHub Release:** Build the Linux package (`.deb`). (Uploading to GitHub Release is a separate step.)
+
+### 5. CI/CD & Release Automation
+- [x] Implement GitHub Actions for CI (build and test).
+- [x] Implement GitHub Actions for multi-platform release (Linux, macOS, Windows).
+- [ ] Verify successful execution of CI workflow on GitHub Actions.
+- [ ] Verify successful execution of multi-platform release workflow on GitHub Actions.
+- [ ] **GitHub Release:** Upload the Linux package (`.deb`) to a GitHub Release.
+- [ ] **GitHub Release:** Upload the macOS package (`.dmg`) to a GitHub Release.
+- [ ] **GitHub Release:** Upload the Windows package (`.msi`) to a GitHub Release.
